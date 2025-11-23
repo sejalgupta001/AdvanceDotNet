@@ -510,17 +510,22 @@ Using the Country–State example, perform Select All and Delete for the followi
 
 ### **Department**
 
-* DeptID (PK, Identity)
-* DepartmentName
+| Column Name    | Data Type    | Constraints                     |
+| -------------- | ------------ | ------------------------------- |
+| DeptID         | INT          | Primary Key (PK), Identity(1,1) |
+| DepartmentName | VARCHAR(100) | NOT NULL                        |
+
 
 ### **Employee**
 
-* EmpID (PK, Identity)
-* EmpName
-* Salary
-* JoiningDate
-* City
-* DeptID (FK → Department)
+| Column Name | Data Type     | Constraints                      |
+| ----------- | ------------- | -------------------------------- |
+| EmpID       | INT           | Primary Key (PK), Identity(1,1)  |
+| EmpName     | VARCHAR(100)  | NOT NULL                         |
+| Salary      | DECIMAL(10,2) | NOT NULL                         |
+| JoiningDate | DATETIME      | NOT NULL                         |
+| City        | VARCHAR(100)  | NOT NULL                         |
+| DeptID      | INT           | Foreign Key → Department(DeptID) |
 
 ---
 
