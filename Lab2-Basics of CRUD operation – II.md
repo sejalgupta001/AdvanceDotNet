@@ -154,49 +154,55 @@ private void LoadCountryDropdown()
 
 ```csharp
 [HttpPost]
-public IActionResult Save(StateModel model)
-{
-    try
-    {
-        string conn = _configuration.GetConnectionString("ConnectionString");
+ public IActionResult Save(StateModel model)
+ {
+     try
+     {
+         if (!ModelState.IsValid)
+         {
+             LoadCountryDropdown();
+             return View("AddEdit", model);
+         }
 
-        using (SqlConnection sql = new SqlConnection(conn))
-        {
-            sql.Open();
-            using (SqlCommand cmd = sql.CreateCommand())
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
+         string conn = _configuration.GetConnectionString("ConnectionString");
 
-                if (model.StateID == 0)
-                {
-                    cmd.CommandText = "PR_State_Insert";
-                }
-                else
-                {
-                    cmd.CommandText = "PR_State_Update";
-                    cmd.Parameters.AddWithValue("@StateID", model.StateID);
-                }
+         using (SqlConnection sql = new SqlConnection(conn))
+         {
+             sql.Open();
+             using (SqlCommand cmd = sql.CreateCommand())
+             {
+                 cmd.CommandType = CommandType.StoredProcedure;
 
-                cmd.Parameters.AddWithValue("@StateName", model.StateName);
-                cmd.Parameters.AddWithValue("@StateCode", model.StateCode);
-                cmd.Parameters.AddWithValue("@CountryID", model.CountryID);
+                 if (model.StateID == 0)
+                 {
+                     cmd.CommandText = "PR_State_Insert";
+                 }
+                 else
+                 {
+                     cmd.CommandText = "PR_State_Update";
+                     cmd.Parameters.AddWithValue("@StateID", model.StateID);
+                 }
 
-                cmd.ExecuteNonQuery();
-            }
-        }
+                 cmd.Parameters.AddWithValue("@StateName", model.StateName);
+                 cmd.Parameters.AddWithValue("@StateCode", model.StateCode);
+                 cmd.Parameters.AddWithValue("@CountryID", model.CountryID);
 
-        TempData["SuccessMessage"] = model.StateID == 0 ?
-            "State added successfully!" :
-            "State updated successfully!";
+                 cmd.ExecuteNonQuery();
+             }
+         }
 
-        return RedirectToAction("Index");
-    }
-    catch (Exception ex)
-    {
-        TempData["ErrorMessage"] = "Error saving: " + ex.Message;
-        return RedirectToAction("AddEdit");
-    }
-}
+         TempData["SuccessMessage"] = model.StateID == 0 ?
+             "State added successfully!" :
+             "State updated successfully!";
+
+         return RedirectToAction("Index");
+     }
+     catch (Exception ex)
+     {
+         TempData["ErrorMessage"] = "Error saving: " + ex.Message;
+         return RedirectToAction("AddEdit");
+     }
+ }
 ```
 
 ---
@@ -204,9 +210,7 @@ public IActionResult Save(StateModel model)
 # **3. View – AddEdit.cshtml (State)**
 
 ```html
-@model YourProject.Models.StateModel
-
-<h2>@(Model.StateID == 0 ? "Add State" : "Edit State")</h2>
+@model StateModel
 
 <form asp-action="Save" method="post">
 
@@ -214,30 +218,29 @@ public IActionResult Save(StateModel model)
 
     <div class="form-group">
         <label>State Name</label>
-        <input asp-for="StateName" class="form-control" required />
+        <input asp-for="StateName" class="form-control" />
+        <span asp-validation-for="StateName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label>State Code</label>
-        <input asp-for="StateCode" class="form-control" required />
+        <input asp-for="StateCode" class="form-control" />
+        <span asp-validation-for="StateCode" class="text-danger"></span>
     </div>
 
     <div class="form-group">
-        <label>Country</label>
+        <label>Select Country</label>
         <select asp-for="CountryID" class="form-control" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName"))">
-            <option value="">-- Select Country --</option>
-        </select>
+            <option value="0">Select Country</option>
+            </select>
+        <span asp-validation-for="CountryID" class="text-danger"></span>
     </div>
 
     <br />
 
-    <button type="submit" class="btn btn-success">
-        @(Model.StateID == 0 ? "Save" : "Update")
-    </button>
-
-    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-
+    <button type="submit" class="btn btn-success">Save</button>
 </form>
+
 ```
 
 ---
@@ -245,20 +248,26 @@ public IActionResult Save(StateModel model)
 # **4. Model – StateModel.cs**
 
 ```csharp
-namespace YourProject.Models
+using System.ComponentModel.DataAnnotations;
+namespace add.Models
 {
     public class StateModel
     {
         public int StateID { get; set; }
+
+        [Required(ErrorMessage = "State Name is required")]
+        [StringLength(100, ErrorMessage = "State Name cannot exceed 100 characters")]
         public string StateName { get; set; }
+
+        [Required(ErrorMessage = "State Code is required")]
+        [StringLength(10, ErrorMessage = "State Code cannot exceed 10 characters")]
         public string StateCode { get; set; }
 
-        // Foreign Key
+        [Required(ErrorMessage = "Please select a country")]
+        [Range(1, int.MaxValue, ErrorMessage = "Invalid Country")]
         public int CountryID { get; set; }
-
-        // For display only
-        public string CountryName { get; set; }
     }
+
     public class CountryDropDownModel
     {
         public int CountryID { get; set; }
