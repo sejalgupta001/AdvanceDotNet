@@ -25,9 +25,6 @@ BEGIN
 END
 GO
 ```
-
----
-
 ---
 
 # 3. Add Excel Export in Controller
@@ -105,8 +102,6 @@ public IActionResult ExportToExcel()
 
 ---
 
----
-
 # 4. Add Download Button in View
 
 ```html
@@ -114,8 +109,6 @@ public IActionResult ExportToExcel()
   Download State Excel
 </a>
 ```
-
----
 
 ---
 
