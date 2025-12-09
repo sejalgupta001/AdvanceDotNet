@@ -472,7 +472,7 @@ var numbers = mixedData.OfType<int>();
 var numbers = from int n in mixedData select n;
 ```
 
-**Result:** `[1, 2, 5]` (only integers extracted)
+**Result:** `[1, 2, 3, 5]` (only integers extracted)
 
 ---
 
