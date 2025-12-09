@@ -1,4 +1,4 @@
-# LINQ: Projection and Filtering Operators
+# Lab - 5 : Working with LINQ Projection and Filtering Operators  
 
 ## 1. Introduction to LINQ
 
