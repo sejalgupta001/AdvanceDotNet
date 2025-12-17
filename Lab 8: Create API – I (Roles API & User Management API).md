@@ -219,9 +219,6 @@ public class RolesController : ControllerBase
     {
         try
         {
-            if (id != role.Id)
-                return BadRequest(new { message = "ID mismatch" });
-
             var existing = await _db.Roles.FindAsync(id);
             if (existing == null)
                 return NotFound(new { message = "Role not found" });
