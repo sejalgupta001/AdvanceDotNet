@@ -33,21 +33,22 @@ app.UseStaticFiles();
 namespace MinutesOfMeeting.Models
 {
     // DTO 
-    public class MeetingCreateDto
-    {        
-        public int? MeetingID { get; set; }
-        public DateTime MeetingDate { get; set; }
-        public int MeetingVenueID { get; set; }
-        public int MeetingTypeID { get; set; }
-        public int DepartmentID { get; set; }
-        public string? MeetingTitle { get; set; }
-        public string? MeetingNumber { get; set; }
-        public string? MeetingDescription { get; set; }
-        public IFormFile? DocumentFile { get; set; } // For new file
-        public bool? IsCancelled { get; set; }
-        public DateTime? CancellationDateTime { get; set; }
-        public string? CancellationReason { get; set; }
-    }
+  public class Meeting
+{
+    public int? MeetingID { get; set; }
+    public DateTime MeetingDate { get; set; }
+    public int MeetingVenueID { get; set; }
+    public int MeetingTypeID { get; set; }
+    public int DepartmentID { get; set; }
+    public string? MeetingTitle { get; set; }
+    public string? MeetingNumber { get; set; }
+    public string? MeetingDescription { get; set; }
+    public string? DocumentPath { get; set; }
+    public bool? IsCancelled { get; set; }
+    public IFormFile? DocumentFile { get; set; }
+    public DateTime? CancellationDateTime { get; set; }
+    public string? CancellationReason { get; set; }
+}
 }
 ```
 
