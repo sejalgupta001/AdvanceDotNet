@@ -25,9 +25,8 @@ Example:
 ```
 xxxxx.yyyyy.zzzzz
 ```
-<img width="1325" height="610" alt="image" src="https://github.com/user-attachments/assets/39193d8b-6746-4870-9372-c0f8faa0ceb4" />
-
-<img width="1080" height="598" alt="image" src="https://github.com/user-attachments/assets/81a72d34-232c-4f7c-bb6c-dbd72d29d02c" />
+<img width="1238" height="598" alt="image" src="https://github.com/user-attachments/assets/679269e6-60f6-45d6-828d-59eeff255da5" />
+<img width="1286" height="707" alt="image" src="https://github.com/user-attachments/assets/bb105e4f-ae8c-4972-9c60-c2337cc34923" />
 
 ---
 
