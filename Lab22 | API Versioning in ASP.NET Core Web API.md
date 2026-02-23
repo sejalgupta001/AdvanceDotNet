@@ -1,4 +1,4 @@
-# Lab 19 – API Versioning in ASP.NET Core Web API
+# API Versioning in ASP.NET Core Web API
 
 ## 1. What is API Versioning?
 
