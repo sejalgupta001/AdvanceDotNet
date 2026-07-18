@@ -25,7 +25,7 @@ LINQ was introduced to solve this problem by providing **one unified way** to qu
 - **IntelliSense Support**: Auto-completion helps you write queries faster
 - **Less Code**: No need for complex loops and conditions
 
-### How LINQ Works
+### How LINQ Works?
 
 LINQ follows a simple flow:
 
@@ -66,23 +66,6 @@ Data Source → Filter → Transform → Execute → Results
 └─────────────────────────────────────┘
 ```
 
-**Example of Simple LINQ Query:**
-
-```csharp
-int[] numbers = { 2, 5, 7, 8, 10 };
-
-var result = numbers.Where(n => n > 5).Select(n => n * 2);
-```
-
-**What happens here:**
-
-1. **Data Source**: Array of numbers
-2. **Filter**: `Where(n => n > 5)` keeps only numbers greater than 5
-3. **Transform**: `Select(n => n * 2)` doubles each number
-4. **Result**: Returns [14, 16, 20]
-
----
-
 ## 2. LINQ Operators: Projection and Filtering
 
 ### Projection Operators:
@@ -115,39 +98,43 @@ var students = new List<Student>
     new Student { Rno = 1, Name = "Amit", Branch = "CE", Sem = 3, CPI = 8.2, Age = 20, Courses = new List<string>{ "Math", "C#" } },
     new Student { Rno = 2, Name = "Neha", Branch = "IT", Sem = 5, CPI = 9.1, Age = 21, Courses = new List<string>{ "DBMS", "C#" } },
     new Student { Rno = 3, Name = "Raj", Branch = "CE", Sem = 3, CPI = 7.5, Age = 19, Courses = new List<string>{ "Math", "Physics" } },
-    new Student { Rno = 4, Name = "Simran", Branch = "IT", Sem = 5, CPI = 9.1, Age = 22, Courses = new List<string>{ "DBMS", "AI" } }
+    new Student { Rno = 4, Name = "Simran", Branch = "IT", Sem = 5, CPI = 9.1, Age = 22, Courses = new List<string>{ "DBMS", "AI" } },
+    new Student { Rno = 5, Name = "Rahul", Branch = "ME", Sem = 4, CPI = 6.8, Age = 20, Courses = new List<string>{ "Thermodynamics" } },
+    new Student { Rno = 6, Name = "Priya", Branch = "CE", Sem = 3, CPI = 8.7, Age = 21, Courses = new List<string>{ "Math", "C#", "OS" } },
+    new Student { Rno = 7, Name = "Vikas", Branch = "IT", Sem = 6, CPI = 7.9, Age = 23, Courses = new List<string>{ "AI", "ML" } },
+    new Student { Rno = 8, Name = "Anjali", Branch = "CE", Sem = 4, CPI = 9.5, Age = 20, Courses = new List<string>{ "Physics", "C#" } },
+    new Student { Rno = 9, Name = "Suresh", Branch = "ME", Sem = 5, CPI = 6.5, Age = 22, Courses = new List<string>{ "Math" } },
+    new Student { Rno = 10, Name = "Meera", Branch = "IT", Sem = 5, CPI = 8.9, Age = 21, Courses = new List<string>{ "DBMS", "AI", "C#" } }
 };
 ```
 
 ### **LINQ Methods**
 
-| **LINQ Method**     | **What It Does (Easy Meaning)** | **Example Code**                                     | **Output Meaning**                                |
-| ------------------- | ------------------------------- | ---------------------------------------------------- | ------------------------------------------------- |
-| **Select**          | Pick/transform specific fields  | `students.Select(s => s.Name)`                       | Returns all student names                         |
-| **SelectMany**      | Flatten nested lists            | `students.SelectMany(s => s.Courses)`                | Returns all courses from all students in one list |
-| **Where**           | Filter items by condition       | `students.Where(s => s.Branch == "CE")`              | Only CE branch students                           |
-| **OfType**          | Keep only specific type         | `mixedList.OfType<Student>()`                        | Only Student objects from mixed collection        |
-| **Take**            | Take first N items              | `students.Take(2)`                                   | First 2 students                                  |
-| **TakeWhile**       | Take until condition fails      | `students.TakeWhile(s => s.CPI > 8)`                 | Students with CPI > 8 until first failure         |
-| **Skip**            | Skip first N items              | `students.Skip(2)`                                   | Skip first 2 students                             |
-| **SkipWhile**       | Skip while condition is true    | `students.SkipWhile(s => s.Sem == 3)`                | Skip all Sem–3 students until Sem changes         |
-| **Distinct**        | Remove duplicate values         | `students.Select(s => s.Branch).Distinct()`          | Unique branches (CE, IT)                          |
-| **First**           | First matching item             | `students.First(s => s.CPI > 9)`                     | First student with CPI > 9                        |
-| **FirstOrDefault**  | First match OR null             | `students.FirstOrDefault(s => s.Age > 30)`           | Returns null (no student above 30)                |
-| **Single**          | Exactly one item must match     | `students.Single(s => s.Rno == 1)`                   | Returns student with roll no. 1                   |
-| **SingleOrDefault** | Safe version of Single          | `students.SingleOrDefault(s => s.Rno == 10)`         | Returns null (no match)                           |
-| **Any**             | Check if ANY record matches     | `students.Any(s => s.CPI > 9)`                       | True (Neha & Simran have CPI > 9)                 |
-| **All**             | Check if ALL records match      | `students.All(s => s.Sem >= 3)`                      | True (all students are Sem ≥ 3)                   |
-| **Contains**        | Check if value exists           | `students.SelectMany(s => s.Courses).Contains("AI")` | True (AI course exists)                           |
-
+| LINQ Method         | Purpose                        | Example Code                                         | SQL Equivalent                                                   | Output Meaning                                    |
+| ------------------- | ------------------------------ | ---------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------- |
+| **Where**           | Filter items by condition      | `students.Where(s => s.Branch == "CE")`              | `SELECT * FROM Students WHERE Branch = 'CE'`                     | Only CE branch students                           |
+| **Select**          | Pick/transform specific fields | `students.Select(s => s.Name)`                       | `SELECT Name FROM Students`                                      | Returns all student names                         |
+| **SelectMany**      | Flatten nested lists           | `students.SelectMany(s => s.Courses)`                | `SELECT Course FROM StudentCourses (flattened)`                  | Returns all courses from all students in one list |
+| **OfType**          | Keep only specific type        | `mixedList.OfType<Student>()`                        | `N/A`                                                            | Only Student objects from mixed collection        |
+| **Distinct**        | Remove duplicate values        | `students.Select(s => s.Branch).Distinct()`          | `SELECT DISTINCT Branch FROM Students`                           | Unique branches                                   |
+| **Take**            | Take first N items             | `students.Take(3)`                                   | `SELECT TOP 3 * FROM Students`                                   | First 3 students                                  |
+| **TakeWhile**       | Take until condition fails     | `students.TakeWhile(s => s.CPI > 8)`                 | `N/A`                                                            | Students with CPI > 8 until first failure         |
+| **Skip**            | Skip first N items             | `students.Skip(3)`                                   | `SELECT * FROM Students OFFSET 3 ROWS FETCH NEXT 1000 ROWS ONLY` | Skip first 3 students                             |
+| **SkipWhile**       | Skip while condition is true   | `students.SkipWhile(s => s.Sem == 3)`                | `N/A`                                                            | Skip all Sem-3 students until Sem changes         |
+| **First**           | Return first matching item     | `students.First(s => s.CPI > 9)`                     | `SELECT TOP 1 * FROM Students WHERE CPI > 9`                     | First student with CPI > 9                        |
+| **FirstOrDefault**  | Return first match or null     | `students.FirstOrDefault(s => s.Age > 30)`           | `SELECT TOP 1 * FROM Students WHERE Age > 30`                    | Returns null (no student above 30)                |
+| **Single**          | Exactly one item must match    | `students.Single(s => s.Rno == 1)`                   | `SELECT * FROM Students WHERE Rno = 1`                           | Returns student with Roll No. 1                   |
+| **SingleOrDefault** | Safe version of Single         | `students.SingleOrDefault(s => s.Rno == 10)`         | `SELECT * FROM Students WHERE Rno = 10`                          | Returns null (no match)                           |
+| **Any**             | Check if any record matches    | `students.Any(s => s.CPI > 9)`                       | `EXISTS (SELECT 1 FROM Students WHERE CPI > 9)`                  | True                                              |
+| **All**             | Check if all records match     | `students.All(s => s.Sem >= 3)`                      | `NOT EXISTS (SELECT 1 FROM Students WHERE Sem < 3)`              | True                                              |
+| **Contains**        | Check if value exists          | `students.SelectMany(s => s.Courses).Contains("AI")` | `'AI' IN (SELECT Course FROM StudentCourses)`                    | True (AI course exists)                           |
 ---
-
 ## 3. Query Syntax vs Method Syntax
 
 LINQ can be written in two different styles:
 
 ### Method Syntax (Lambda-Based)
-
+---
 ### **What is Lambda Syntax?**
 
 A **lambda expression** is a short function you write directly inside the code.
@@ -257,7 +244,7 @@ var result = students.Where(s => s.Age > 18).Select(s => s.Name);
 ```
 
 ### Query Syntax (SQL-Like)
-
+---
 Looks similar to SQL queries with keywords like `from`, `where`, `select`.
 
 ```csharp
