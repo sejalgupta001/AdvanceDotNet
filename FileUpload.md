@@ -235,6 +235,25 @@ app.Run();
 ```
 
 ---
+### POST User API : Make sure you select multipart/form-data under Body when sending the request.
+<img width="1527" height="727" alt="image" src="https://github.com/user-attachments/assets/3ec3bcad-6ce4-4fae-b90f-c4b85a3a0210" />
+
+
+### Delete User API : Use the `deleteFileOnly` query parameter to choose what you want to delete:
+
+ - Set **`deleteFileOnly=true`** if you only want to delete the user's uploaded file/document. The user record will remain in the database.
+- Set **`deleteFileOnly=false`** if you want to delete the **entire user record/data** from the database. The associated physical file will also be deleted.
+
+ **Examples:**
+
+ `DELETE /api/User/5?deleteFileOnly=true`\
+ → Deletes **only the document/file**.
+
+ `DELETE /api/User/5?deleteFileOnly=false`\
+ → Deletes the **entire user record and its document/file**.
+
+ If `deleteFileOnly` is not provided, it defaults to **false**, so the entire user record and associated file will be deleted.
+<img width="1392" height="616" alt="image" src="https://github.com/user-attachments/assets/a3acee87-5499-456b-af01-075c485418a3" />
 
 ### ⚠️ Common Mistakes
 
