@@ -1,4 +1,5 @@
 # Implementing File Upload, Update, and Deletion
+<img width="1672" height="941" alt="ChatGPT Image Sep 11, 2026, 08_35_12 AM" src="https://github.com/user-attachments/assets/3fa8c019-f4eb-414d-a931-c24e7b76b4dc" />
 
 ### Step 1: Create the File Service Interface and Class
 
