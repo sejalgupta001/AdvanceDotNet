@@ -131,7 +131,7 @@ public async Task<IActionResult> Create([FromForm] UserDTO dto)
     await _dbcontext.Users.AddAsync(user);
     await _dbcontext.SaveChangesAsync();
 
-    return CreatedAtAction(nameof(GetById), new { id = user.UserId }, user);
+    return Ok(user);
 }
 
 // UPDATE: api/User/5
