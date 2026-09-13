@@ -206,18 +206,10 @@ Register services, configure file payload size limits, set up `wwwroot`, and ena
 ```csharp
 // Program.cs
 
-// 1. Ensure wwwroot path exists and is assigned
-string wwwRootPath = Path.Combine(builder.Environment.ContentRootPath, "wwwroot");
-if (!Directory.Exists(wwwRootPath))
-{
-    Directory.CreateDirectory(wwwRootPath);
-}
-builder.Environment.WebRootPath = wwwRootPath;
-
-// 2. Register Service
+// 1. Register Service
 builder.Services.AddScoped<IFileService, FileService>();
 
-// 3. Configure file upload body length limits (e.g., 15 MB)
+// 2. Configure file upload body length limits (e.g., 15 MB)
 builder.Services.Configure<FormOptions>(options =>
 {
     options.MultipartBodyLengthLimit = 15 * 1024 * 1024;
@@ -227,7 +219,7 @@ builder.Services.Configure<FormOptions>(options =>
 
 var app = builder.Build();
 
-// 4. MUST enable Static Files to make uploaded files accessible via browser URL
+// 3. MUST enable Static Files to make uploaded files accessible via browser URL
 app.UseStaticFiles();
 
 app.MapControllers();
